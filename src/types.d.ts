@@ -6,3 +6,7 @@ export interface citasEntry {
           fk_id_paciente: number,
           fk_id_medico: number
 } 
+
+export interface userModel {
+  usu_contrasenia?: number | null
+}
