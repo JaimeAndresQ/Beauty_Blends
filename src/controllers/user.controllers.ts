@@ -4,13 +4,14 @@ import { paciente, usuario } from '../models/user'
 import jwt from 'jsonwebtoken'
 
 
-export const newUser = async (req: Request, res: Response) => {
+export const newUserPaciente = async (req: Request, res: Response) => {
   
-    //Primeramente se agregando los datos de la persona
-    const {id_paciente, nombres, apellido_paterno ,apellido_materno, telefono, fecha_nacimiento, genero} = req.body
-
-    //Despues de crear el paciente (agregando los datos personales), se procede a crear el usuario para relacionarlo con el correspondiente paciente.
+    //Primeramente se agrega los datos de usuario
     const { id_correo, contrasenia} = req.body
+
+    //Luego se agrega la información correspondiente al usuario
+    const {id_paciente, nombres, apellido_paterno ,apellido_materno, telefono, fecha_nacimiento, genero } = req.body
+
 
     //Validamos si el usuario ya existe en la base de datos....
     const usuarioExistente = await usuario.findOne({ where: {id_usuario_correo: id_correo}})
@@ -27,6 +28,14 @@ export const newUser = async (req: Request, res: Response) => {
 
         try {
 
+            //Crear el usuario en la base de datos con los datos ingresados con el rol de paciente (POR DEFAULT)
+            usuario.create({
+                id_usuario_correo: id_correo,
+                usu_contrasenia: hashedPassword,
+                usu_rol: 'P',
+                usu_estado: 1
+            })
+
             //Crear el paciente con los datos personales para luego relacionarlo con el usuario que quiera registrar
             await paciente.create({
                 id_paciente: id_paciente,
@@ -35,15 +44,10 @@ export const newUser = async (req: Request, res: Response) => {
                 pa_apellido_materno: apellido_materno,
                 pa_telefono: telefono,
                 pa_fecha_nacimiento: fecha_nacimiento,
-                pa_genero: genero
+                pa_genero: genero,
+                fk_id_usuario_correo: id_correo
             })
 
-            //Crear el usuario en la base de datos con los datos ingresados
-            usuario.create({
-                id_usuario_correo: id_correo,
-                usu_contrasenia: hashedPassword,
-                Paciente_id_paciente: id_paciente
-            })
             res.json({
                 msg: `Usuario ${id_correo} creado exitosamente`,
             })
@@ -61,11 +65,11 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
     const {id_correo, contrasenia } = req.body
 
     //Validar estado del usuario (ACTIVO)
-
+    const usuarioActivo: any = await usuario.findOne({where: {usu_estado: 1}})
 
     //Validamos si el usuario existe en la base de datos
     const usuarioExistente: any = await usuario.findOne({ where: {id_usuario_correo: id_correo}})
-    if(!usuarioExistente){
+    if(!usuarioExistente && usuarioActivo){
         return res.status(400).json({
             msg: `No existe un usuario con el correo ${id_correo} en la base de datos`
         })
@@ -82,7 +86,7 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
     //Generamos un JWT Token para proteger las rutas de acceso
     const token = jwt.sign({
         correo: id_correo,
-    }, process.env.SECRET_KEY || 'N35kxkHHhCz49eVge6X0C@GckT!@')
+    }, process.env.SECRET_KEY || 'N35kxkHHhCz49eVge6X0C@GckT!@', {expiresIn: '3600000'})
 
     res.json({token})
 

@@ -31,6 +31,10 @@ export const paciente = sequelize.define('Paciente',
         pa_genero: {
             type: DataTypes.CHAR,
             allowNull: false
+        },
+        fk_id_usuario_correo : {
+            type: DataTypes.STRING(100),
+            allowNull: false
         }
     }, {
         tableName: 'Paciente',
@@ -55,9 +59,9 @@ export const usuario = sequelize.define('Usuario',
             allowNull: false,
             defaultValue: 0
         },
-        Paciente_id_paciente: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+        usu_estado : {
+            type: DataTypes.TINYINT,
+            allowNull: false 
         }
     },
     {
@@ -67,6 +71,6 @@ export const usuario = sequelize.define('Usuario',
 )
 
 //Definir la relacion entre los modelos
-paciente.hasOne(usuario, {foreignKey: 'Paciente_id_paciente', sourceKey: 'id_paciente'} )
-usuario.belongsTo(paciente, {foreignKey: 'Paciente_id_paciente', targetKey: 'id_paciente' })
+usuario.hasOne(paciente, {foreignKey: 'fk_id_usuario_correo', sourceKey: 'id_usuario_correo'} )
+paciente.belongsTo(usuario, {foreignKey: 'fk_id_usuario_correo', targetKey: 'id_usuario_correo' })
 
