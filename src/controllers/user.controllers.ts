@@ -91,3 +91,115 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
     res.json({token})
 
 }
+
+//Función para traer los datos de un usuario en especifico
+export const getUserInfoUpdate = async ( req: Request, res: Response): Promise<void> => {
+    
+    const {id_correo} = req.params
+    const user = await usuario.findByPk(id_correo)
+    const userPaciente  = await paciente.findOne({where: { fk_id_usuario_correo:id_correo }})
+
+    try{
+        if(!user){
+            res.status(404).json({
+                msg: `No se encontró un usuario con el correo ${id_correo} en la base de datos`
+            })
+        }
+        else{
+            res.status(200).json({
+                nombres: userPaciente?.getDataValue('pa_nombres'),
+                apellido_materno: userPaciente?.getDataValue('pa_apellido_materno'),
+                apellido_paterno: userPaciente?.getDataValue('pa_apellido_paterno'),
+                telefono: userPaciente?.getDataValue('pa_telefono'),
+                fecha_nacimiento: userPaciente?.getDataValue('pa_fecha_nacimiento'),
+                pa_genero: userPaciente?.getDataValue('pa_genero')
+            })
+            
+        }}catch(error) {
+        res.status(500).json({ 
+            msg: 'Ups ocurrio un error',
+            error
+        })
+    }
+}
+
+//Función para ctualizar datos del usuario
+export const updateInfoUser = async (req: Request, res: Response):Promise<void> => {
+    
+    const {nombres,apellido_paterno,apellido_materno, telefono, fecha_nacimiento,pa_genero } = req.body
+    const {id_correo} = req.params
+
+    try {
+        //Buscar el usuario que quiere actualizar sus datos
+        const userPaciente = await paciente.findOne({where: {fk_id_usuario_correo: id_correo}})
+        const id_paciente = await userPaciente?.getDataValue('id_paciente')
+
+        if(userPaciente){
+            //Existe el usuario que intenta actualizar datos.... 
+            //Proceder con la consulta 
+
+            await paciente.update(
+                {pa_nombres: nombres, 
+                    pa_apellido_paterno:apellido_paterno, 
+                    pa_apellido_materno:apellido_materno, 
+                    pa_fecha_nacimiento:fecha_nacimiento, 
+                    pa_genero: pa_genero,
+                    pa_telefono:telefono},
+                {where: {id_paciente:id_paciente}})
+            res.status(200).json({
+                msg: 'El usuario se ha actualizado!'
+            })
+                    
+        }else{
+            res.status(404).json({
+                msg: `No existe un usuario con el correo ${id_correo}`
+            })
+        }
+    }catch(error) {
+        res.status(500).json({ 
+            msg: 'Ups ocurrio un error',
+            error
+        })}
+}
+
+//Función para cambiar contraseña
+export const updatePassword = async (req: Request, res: Response): Promise<void> => {
+    const {contrasenia} = req.body
+    const {id_correo} = req.params
+    
+    try {
+        //Buscar el usuario que quiere actualizar su contraseña
+        const user = await usuario.findByPk(id_correo)
+
+        //Validar que la contraseña que ingresa es diferente a la anterior
+        if(user){
+            const contraseniaActual = await usuario.findOne({where: {id_usuario_correo: id_correo}})
+
+            //Validamos la contrasenia del usuario
+            const contraseniaValida = await bcrypt.compare(contrasenia, contraseniaActual?.getDataValue('usu_contrasenia'))
+            if(!contraseniaValida){
+                //Encripta la contrasenia para agregarla en la base de datos
+                const hashedPassword = await bcrypt.hash(contrasenia, 10)
+                await usuario.update({usu_contrasenia: hashedPassword}, {where: {id_usuario_correo: id_correo}})
+                res.status(200).json({
+                    msg: 'Contrasenia válida'
+                })
+            }
+            //En caso de que sea la misma contraseña devolver un mensaje (error 400)
+            else{
+                res.status(400).json({
+                    msg: '¡Estas ingresando tu actual contraseña!'
+                })
+            }
+        } else{
+        //En caso de no encontrar al usuario (Devolver 404)
+            res.status(404).json({
+                msg: `No se encontró un usuario con el correo ${id_correo} en la base de datos`
+            })
+        }}
+    catch(error) {
+        res.status(500).json({ 
+            msg: 'Ups ocurrio un error',
+            error
+        })}
+}
