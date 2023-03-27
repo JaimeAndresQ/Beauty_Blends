@@ -1,13 +1,10 @@
 import  express  from 'express'
-import { getCitas } from '../controllers/citas.controllers'
+import { getCitas, registrarDisponibilidadCitas } from '../controllers/citas.controllers'
 import validateToken from './validate-token'
 
 const router = express.Router()
 
-router.post('/', (_req, res) => {
-    res.send('Guardando una cita!!')
-})
-
-router.get('/',validateToken, getCitas)
+router.get('/:especialidad',validateToken, getCitas)
+router.post('/CreateCita', validateToken, registrarDisponibilidadCitas)
 
 export default router
