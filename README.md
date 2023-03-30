@@ -16,4 +16,12 @@ Desarrollar un sistema de información web, contemplando estándares de desarrol
 | Breyner Johan Ropero Contreras | Scrum team | Frontend
 | Carlos Andres Linares Patiño | Scrum team | Diseño UI/UX
 
+## Base de datos
 
+![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Proyecto_Integrador_DB.png)
+
+## Infrestructura de red
+
+![Infraestructura de red](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Infraestructura_red.png)
+
+## 
