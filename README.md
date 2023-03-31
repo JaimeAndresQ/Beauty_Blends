@@ -108,17 +108,17 @@ Desarrollar un sistema de información web, contemplando estándares de desarrol
 
 ## Base de datos
 
-![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Database_Beauty_Blends.png)
+![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Database_Beauty_Blends.png)
 
-![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Auditoria_Database_Beauty_Blends.png)
+![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Auditoria_Database_Beauty_Blends.png)
 
 
 ## Infrestructura de red
 
-![Infraestructura de red](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Infraestructura_red.png)
+![Infraestructura de red](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Infraestructura_red.png)
 
 ## Diseño del sistema de información
 
-![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Home_Page.png)
+![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Home_Page.png)
 
-![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Login.png)
+![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Login.png)
