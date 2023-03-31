@@ -108,7 +108,10 @@ Desarrollar un sistema de información web, contemplando estándares de desarrol
 
 ## Base de datos
 
-![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Proyecto_Integrador_DB.png)
+![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Database_Beauty_Blends.png)
+
+![Base de datos](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/Auditoria_Database_Beauty_Blends.png)
+
 
 ## Infrestructura de red
 
