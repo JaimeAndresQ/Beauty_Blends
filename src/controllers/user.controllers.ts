@@ -69,7 +69,7 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
 
     //Validamos si el usuario existe en la base de datos
     const usuarioExistente: any = await usuario.findOne({ where: {id_usuario_correo: id_correo}})
-    if(!usuarioExistente && usuarioActivo){
+    if(!usuarioExistente && !usuarioActivo){
         return res.status(400).json({
             msg: `No existe un usuario con el correo ${id_correo} en la base de datos`
         })
@@ -82,30 +82,37 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
             msg: 'Contrasenia incorrecta'
         })
     }
-
     //Generamos un JWT Token para proteger las rutas de acceso
     const token = jwt.sign({
         correo: id_correo,
     }, process.env.SECRET_KEY || 'N35kxkHHhCz49eVge6X0C@GckT!@', {expiresIn: '3600000'})
 
-    res.json({token})
+    const userInfo = await usuario.findByPk(id_correo)
 
+    res.json({token,
+        rol: userInfo?.getDataValue('usu_rol')
+    })
+    
 }
 
 //Función para traer los datos de un usuario en especifico
 export const getUserInfoUpdate = async ( req: Request, res: Response): Promise<void> => {
     
+    //Recibimos como parametro el correo del usuario que solicita sus datos
     const {id_correo} = req.params
     const user = await usuario.findByPk(id_correo)
+    //Buscamos el paciente asociado al usuario para traer todos los datos
     const userPaciente  = await paciente.findOne({where: { fk_id_usuario_correo:id_correo }})
 
     try{
         if(!user){
+            //En caso de no encontrar un usuario con dicho correo, devolver un error
             res.status(404).json({
                 msg: `No se encontró un usuario con el correo ${id_correo} en la base de datos`
             })
         }
         else{
+            //En caso de encontrar el usuario, le mostramos los datos
             res.status(200).json({
                 nombres: userPaciente?.getDataValue('pa_nombres'),
                 apellido_materno: userPaciente?.getDataValue('pa_apellido_materno'),
@@ -151,6 +158,7 @@ export const updateInfoUser = async (req: Request, res: Response):Promise<void> 
             })
                     
         }else{
+            //No exite el usuario que intenta actualizar sus datos
             res.status(404).json({
                 msg: `No se encontró un usuario con el correo ${id_correo} en la base de datos`
             })
@@ -299,20 +307,4 @@ export const newUserEmpleado = async (req: Request, res: Response) => {
                 error
             })
         }}
-}
-
-//PROBANDO PAGINACIÓN
-export const findFemaleUser = async (req: Request, res: Response) => {
-    
-    const page = +req.params.page
-    const FemalePacientes = await paciente.findAll({
-        limit: page,
-        where:{ pa_genero: 'M'}
-    })
-
-    res.status(200).json({
-        FemalePacientes,
-        msg: 'Valida'
-    })
-
 }
