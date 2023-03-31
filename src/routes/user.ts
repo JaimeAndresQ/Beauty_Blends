@@ -8,8 +8,6 @@ router.post('/login/', loginUser)
 router.get('/userInfo/:id_correo', getUserInfoUpdate)
 router.put('/updatePassword/:id_correo', updatePassword)
 router.put('/updateInfo/:id_correo', updateInfoUser)
-//PROBANDO PAGINACIÓN
-// router.get('/userInfo/page/:page',findFemaleUser)
 router.post('/createMedico/', newUserMedico)
 router.post('/createEmpleado/',newUserEmpleado)
 
