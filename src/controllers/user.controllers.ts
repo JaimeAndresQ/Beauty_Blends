@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import { paciente, usuario } from '../models/user'
+import { medico, paciente, usuario } from '../models/user'
 import jwt from 'jsonwebtoken'
 
 
@@ -52,7 +52,7 @@ export const newUserPaciente = async (req: Request, res: Response) => {
                 msg: `Usuario ${id_correo} creado exitosamente`,
             })
         }catch(error){
-            res.status(400).json({
+            res.status(500).json({
                 msg: 'Ups ocurrio un error',
                 error
             })
@@ -65,7 +65,7 @@ export const loginUser = async (req: Request, res: Response): Promise<Response |
     const {id_correo, contrasenia } = req.body
 
     //Validar estado del usuario (ACTIVO)
-    const usuarioActivo: any = await usuario.findOne({where: {usu_estado: 1}})
+    const usuarioActivo: any = await usuario.findOne({where: {usu_estado: 1, id_usuario_correo: id_correo}})
 
     //Validamos si el usuario existe en la base de datos
     const usuarioExistente: any = await usuario.findOne({ where: {id_usuario_correo: id_correo}})
@@ -152,7 +152,7 @@ export const updateInfoUser = async (req: Request, res: Response):Promise<void> 
                     
         }else{
             res.status(404).json({
-                msg: `No existe un usuario con el correo ${id_correo}`
+                msg: `No se encontró un usuario con el correo ${id_correo} en la base de datos`
             })
         }
     }catch(error) {
@@ -182,7 +182,7 @@ export const updatePassword = async (req: Request, res: Response): Promise<void>
                 const hashedPassword = await bcrypt.hash(contrasenia, 10)
                 await usuario.update({usu_contrasenia: hashedPassword}, {where: {id_usuario_correo: id_correo}})
                 res.status(200).json({
-                    msg: 'Contrasenia válida'
+                    msg: 'Contraseña válida'
                 })
             }
             //En caso de que sea la misma contraseña devolver un mensaje (error 400)
@@ -202,4 +202,117 @@ export const updatePassword = async (req: Request, res: Response): Promise<void>
             msg: 'Ups ocurrio un error',
             error
         })}
+}
+
+//Definir método para registrar médicos por parte del administrador
+export const newUserMedico = async (req: Request, res: Response) => {
+    
+    //Primeramente se agrega los datos del usuario (médico)
+    const { id_correo, contrasenia} = req.body
+
+    //Luego se agrega la información correspondiente al medico
+    const {id_medico, me_nombres, me_apellido_paterno ,me_apellido_materno, me_telefono, me_especialidad, fk_id_area_tratamiento } = req.body
+
+    
+    //Se valida que el usuario no se encuentre registrado en la base de datos
+    const usuarioExistente = await usuario.findOne({ where: {id_usuario_correo: id_correo}})
+    const medicoExistente = await medico.findOne({ where: {id_medico: id_medico}})
+
+    
+    if(usuarioExistente || medicoExistente){
+        res.status(400).json({
+            msg: `Ya existe un usuario con el correo ${id_correo} O numero de identificacion ${id_medico}`
+        })
+    }else {
+        //Se encripta la contraseña para guardarla en la base de datos
+        const hashedPassword = await bcrypt.hash(contrasenia, 10)
+
+        try {
+
+            //Crear el usuario en la base de datos con los datos ingresados con el rol de medico (POR DEFAULT = M)
+            await usuario.create({
+                id_usuario_correo: id_correo,
+                usu_contrasenia: hashedPassword,
+                usu_rol: 'M',
+                usu_estado: 1
+            })
+    
+            //Luego se procede con el registro de los datos del medico
+            await medico.create({
+                id_medico: id_medico,
+                me_nombres: me_nombres,
+                me_apellido_paterno: me_apellido_paterno,
+                me_apellido_materno: me_apellido_materno,
+                me_telefono: me_telefono,
+                me_especialidad: me_especialidad,
+                fk_tratamiento_id_area_tratamiento: fk_id_area_tratamiento,
+                fk_id_usuario_correo: id_correo
+            })
+            res.status(200).json({
+                msg: `Usuario ${id_correo} creado exitosamente`,
+            })
+        }catch(error){
+            res.status(500).json({
+                msg: 'Ups ocurrio un error',
+                error
+            })
+        }
+    }
+}
+
+//Definir método para registrar usuarios (empleados) por parte del administrador
+export const newUserEmpleado = async (req: Request, res: Response) => {
+    
+    //Primeramente se agrega los datos del usuario a registrar
+    const { id_correo, contrasenia} = req.body
+
+    //Se valida que el usuario no se encuentre registrado en la base de datos
+    const usuarioExistente = await usuario.findByPk(id_correo)
+
+    //En caso de que el usuario exista en la base de datos:
+    //No realizar la consulta a la base de datos y devolver un mensaje de error.
+    if(usuarioExistente){
+        res.status(400).json({
+            msg: `Ya existe un usuario con el correo ${id_correo} en el sistema`
+        })
+    } else {
+
+        //Se encripta la contraseña para guardarla en la base de datos
+        const hashedPassword = await bcrypt.hash(contrasenia, 10)
+
+        try {
+
+            //Crear el usuario en la base de datos con los datos ingresados con el rol de empleado (POR DEFAULT = E)
+            usuario.create({
+                id_usuario_correo: id_correo,
+                usu_contrasenia: hashedPassword,
+                usu_rol: 'E',
+                usu_estado: 1
+            })
+            res.status(200).json({
+                msg: `Usuario ${id_correo} creado exitosamente`
+            })
+
+        }catch(error){
+            res.status(500).json({
+                msg: 'Ups ocurrio un error',
+                error
+            })
+        }}
+}
+
+//PROBANDO PAGINACIÓN
+export const findFemaleUser = async (req: Request, res: Response) => {
+    
+    const page = +req.params.page
+    const FemalePacientes = await paciente.findAll({
+        limit: page,
+        where:{ pa_genero: 'M'}
+    })
+
+    res.status(200).json({
+        FemalePacientes,
+        msg: 'Valida'
+    })
+
 }
