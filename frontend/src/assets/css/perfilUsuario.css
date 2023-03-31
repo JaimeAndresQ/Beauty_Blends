@@ -1,0 +1,623 @@
+
+
+/*header*/
+
+.nombre-sitio-inicio-usuario h1{
+    padding-left: 1rem;
+    font-family: 'Barlow', sans-serif;
+}
+.nombre-sitio-inicio-usuario{
+    padding: .5rem;
+    margin-top: 1rem;
+}
+.inicio-usuario-contenedor{
+    margin: 0;
+    padding: 0;
+    background-color:#0F9A71 ;
+    height: 100vh;
+    width: 100vw;
+}
+@media (max-width:1000px){ 
+    .inicio-usuario-contenedor{
+        height: max-content;
+    }
+}
+.nombre-sitio-inicio-usuario h1{
+    font-family: 'Barlow', sans-serif;
+    color: #F1FAFF;
+    margin: 0;
+}
+/*Menu*/
+
+.menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #0BA3A0;
+    z-index: 1;
+  }
+  
+  .menu nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+  
+  .menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .menu li {
+    margin-bottom: 1rem;
+  }
+  
+  .menu a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5rem;
+  }
+  .content-inicio-desarrollo{
+    width: min(90%,980px);
+    margin: 0 auto;
+  }
+  .fieldset-contraseña-inicio{
+    width: 50%;
+    margin: 10px auto;
+    
+  }
+  @media (max-width:1000px){ 
+    .fieldset-contraseña-inicio{
+        width: 100%;
+
+    }
+  }
+  /* Estilos para el resto de la página */
+    .perfil {
+        display: flex;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        justify-content: flex-end;
+        padding: 9px 9px;
+      }
+      @media (max-width:1250px){ 
+        .perfil {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 9px;
+          }
+      }
+      .perfil img {
+        width: 40px;
+        height: 40px;
+        margin-top: 1rem;
+        margin-right: 2rem;
+      }
+      
+      .nombre-usuario {
+        color: #000;
+        font-size: .9rem;
+        font-weight: bold;
+        padding-right: 1rem;
+      }
+      
+      .menu-perfil {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        width: 150px;
+        background-color: #000;
+        border-radius: 10px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+        display: none;
+        z-index: 2;
+      }
+      
+      .perfil-menu-usuario:hover .menu-perfil {
+        display: block;
+      }
+      
+      .menu-perfil ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      
+      .menu-perfil li {
+        margin: 5px 0;
+        text-align: center;
+      }
+      
+      .menu-perfil a {
+        display: block;
+        padding: 5px;
+        color: #fff;
+        text-decoration: none;
+      }
+
+/*tipo-menu-*/
+.navegacion-barra-inicio-usuario{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+}
+.navegacion-inicio-usuario {
+  margin-top: auto;
+}
+
+.navegacion-inicio-usuario ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 18rem;
+}
+
+.navegacion-inicio-usuario li {
+  display: block;
+  margin-bottom: 2rem;
+  margin-right: 0;
+  padding-right: 0;
+}
+.desarrollo-home {
+  text-align: center;
+}
+
+.titulo-centrado {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.titulo-centrado h2 {
+  font-size: 36px;
+  font-weight: bold;
+  font-family: 'Barlow', sans-serif;
+  color: #000;
+}
+
+
+.navegacion-inicio-usuario a {
+  display: block;
+  color: #F1FAFF;
+  text-decoration: none;
+  padding: 0.6em;
+}
+
+.navegacion-inicio-usuario a:hover {
+  background-color: #086046;
+}
+
+.navegacion-inicio-usuario a:last-child {
+  margin-top: 2em;
+}
+
+.cerrar-sesion {
+  border-radius: 3px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  padding-bottom: 2rem;
+  }
+
+
+/*capa blanca*/
+.desarrollo-home{
+  background-color: #F1FAFF;
+}
+.desarrollo-home {
+  position: absolute;
+  top: .6rem;
+  right: 0;
+  bottom: 0;
+  left: 20rem;
+  background-color: #F1FAFF;
+  border-top-left-radius: 50px;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.7);
+}
+@media (max-width:1250px){ 
+  .desarrollo-home{
+    top: 0.6;
+    left: 0;
+    height: max-content;
+    position: relative;
+    transition: left 500ms;
+  }
+}
+.active-menu-usuario{
+    left: 90%
+}
+/*Cartas*/
+
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Barlow', sans-serif;
+}
+
+.container__cards{
+  max-width: 1200px;
+  margin: auto;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.fa-arrow-right{
+    display: none;
+}
+.fa-arrow-right{
+    transition: transform 500ms;
+}
+.active-arrow{
+    transform: rotate(180deg);
+}
+@media (max-width:1250px){ 
+  .container__cards{
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .fa-arrow-right{
+    display: inline;
+  }
+}
+.card{
+  width: 300px;
+  margin: 10px;
+  transition: all 300ms;
+}
+
+.card:hover{
+  width: 350px;
+}
+
+.card .cover{
+  width: 100%;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card .cover img{
+  width: 250px;
+  display: block;
+  margin: auto;
+  position: relative;
+  top: 35px;
+  z-index: 1;
+  filter: drop-shadow(5px 5px 4px rgba(0,0,0,0.5));
+  transition: all 400ms;
+}
+
+.card:hover .cover img{
+  top: 0px;
+  filter: none;
+}
+
+.card .img__back{
+  width: 100%;
+  height: 200px;
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  background-size: cover;
+  border-radius: 20px;
+  transition: all 300ms;
+}
+
+.card:nth-of-type(1) .img__back{
+  background-image: url(../img/bg1.jpg);
+}
+
+.card:nth-of-type(2) .img__back{
+  background-image: url(../img/bg2.jpg);
+}
+
+.card:nth-of-type(3) .img__back{
+  background-image: url(../img/bg3.jpg);
+}
+
+.card:hover .img__back{
+  bottom: -40px;
+}
+
+.card .description{
+  background: white;
+  margin-top: -10px;
+  padding: 20px;
+  border-radius: 0px 0px 20px 20px;
+  transition: all 300ms;
+}
+
+.card:hover .description{
+  padding: 40px;
+}
+
+.card .description h2{
+  margin-top: 10px;
+}
+
+.card .description p{
+  margin-top: 10px;
+}
+
+.card .description input{
+  padding: 10px 40px;
+  margin-top: 20px;
+  border: none;
+  background: #0F9A71;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 300ms;
+}
+
+.card .description input:hover{
+  background: #0a7957;
+}
+
+
+/* Panel de Usuario */
+
+
+/*formulario*/
+.contenedor-flex-registro{
+    display: flex;
+    gap: 2rem;
+
+}
+.campo-registro:first-child{
+  margin-top: 2rem;
+}
+/*Input animation*/
+
+.div-flex-registro{
+    width: 100%;
+    position: relative;
+}
+.input-cedula-registro{
+    padding: 1rem;
+}
+
+.input-registro{
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 100%; /* el ancho será el 100% del contenedor padre */
+    border-radius: .5rem;
+
+    padding: 1.3rem;
+    border: solid 2px #000000;
+    outline: none;
+    width: 100%;
+  }
+.input-registro:valid + .form__label-registro,
+.input-registro:focus + .form__label-registro {
+  transform: translateY(-2.5rem);
+  transition: .5s ;
+  color: black;
+  width: auto;
+}
+
+.campo-registro{
+    padding: 1rem;
+    display: flex;
+}
+.camp-registro{
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+}
+.form__label-registro{
+    position: absolute;
+    top: 1.6rem;
+    left: 2.5rem;
+    background: white;
+    padding: 0 .5rem;
+    color: gray;
+    width: 85%;
+}
+.label__Cedula-registro{
+    top: .5rem;
+    left: 1rem;
+}
+/*input animation*/
+.campoflex-registro{
+    display: flex;
+    flex-direction: column;
+}
+
+
+  
+  .boton-registro {
+    padding: 1.3rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: .5rem;
+    background-color: #006260;
+    color: #fff;
+    width: 80%;
+    border: 2px solid;
+    border-color: #fff;
+    cursor: pointer;
+
+border-color: #000;
+    margin: 1rem 0 2rem 0;
+    max-width: 25rem;
+
+}
+.boton-registro:hover{
+    background-color: #00514f;
+}
+.boton-iniciar-sesion:hover{
+    background-color: #00514f;
+}
+
+
+
+legend{
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+
+
+
+fieldset{
+  border-radius: 20px;
+}
+@media (max-width:1000px){ 
+    fieldset{
+
+        margin: 0 auto;
+    }
+    
+}
+.formulario__input--a {
+ text-align: center;
+ margin-bottom: 2rem;
+}
+.formulario__input--a a{
+  color: #047063;
+  font-size: 1.4rem;
+  text-align: center;
+  text-decoration:underline;
+}
+.campoflex-registro{
+    width: 100%;
+}
+.imagen-registro img{
+
+ object-fit: cover;
+}
+.imagen-registro{
+    flex-grow: 1;
+}
+.formulario-boton{
+    flex-grow: 2;
+}
+.input-tipoid-registro{
+    width: 100%;
+}
+.input-id{
+    width: 70%;
+    content: "HOla";
+}
+.terminos{
+    color: #000000;
+    text-align: center;
+}
+.terminos-div{
+    text-align: left;
+    margin-top: 0;
+}
+
+
+@media (max-width:768px){ 
+    .contenedor-flex-registro{
+        flex-direction: column;
+        gap: 0;
+    }
+}
+.div-boton-registro{
+    display: flex;
+    justify-content: center;
+}
+.contenido-registro{
+    display: flex;
+    
+}
+.formulario-registro{
+    flex-grow: 2;
+}
+.imagen-registro{
+    height: 22rem;
+}
+.terminos-div{
+    text-align: center;
+}
+
+@media (max-width:768px){ 
+ 
+.contenido-registro{
+    flex-direction: column-reverse;
+}   
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.nombre-sitio {
+    background: linear-gradient(to right, #3EEBB7 0,#069584,#047063 65% );;
+    padding: 0.5rem;
+}
+
+.nombre-sitio h1 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 3rem;
+    margin: 0;
+    padding-left: 3rem;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nombre-sitio h1 {
+        font-size: 2rem;
+    }
+
+    .navegacion {
+        font-size: 1.7rem;
+    }
+}
+
+.navegacion-barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navegacion {
+    padding: 0.5rem 3rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 2rem;
+}
+
+.contenedor__header {
+    width: 100%;
+    margin: 0;
+}
+.campo-registro label{
+    text-align: left;
+}
+.logo-panel{
+  height: 166px;
+  object-fit: cover;
+  margin-left: 30px;
+}
+.navegacion-inicio-usuario p{
+  margin-left: 10px;
+  color: #fff;
+  font-size: 13px;
+  font-family: serif;
+  font-weight: 500;
+  margin-top: 40px;
+}
+.navegacion-inicio-usuario i{
+  margin-right: 10px;
+}

@@ -1,0 +1,284 @@
+html{
+    box-sizing: border-box;
+    font-size: 62.5%;/*1rem=10px*/
+}
+*,*:before,*:after{
+    box-sizing:inherit;
+}
+.body-sesion{
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.6rem;
+    line-height: 2;
+}
+
+
+/*header*/
+
+.nombre-sitio h1{
+    padding-left: 3rem;
+    font-family: 'Barlow', sans-serif;
+    
+}
+.nombre-sitio{
+    background-color: #0BA3A0;
+    padding: .5rem;
+    margin-top: 1rem;
+}
+.body-sesion{
+    margin: 0;
+    padding: 0;
+}
+.nombre-sitio h1{
+    font-family: 'Barlow', sans-serif;
+    color: #fff;
+    line-height:2rem; 
+    margin: 0;
+}
+
+.navegacion-barra{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.contenedor__header {
+    width: 100%;
+    margin: 0;
+}
+.navegacion{
+    padding: 0.5rem 3rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 2rem;
+}
+
+/*desarrollo*/
+.Contenedor-nombre {
+  width: min(90%,60rem);
+  margin:0 auto;
+}
+  /*Imagen*/
+  .contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.imagen {
+    background-image: url(../img/Self-Care-Tips-for-Teachers-Square.png);
+    background-repeat: no-repeat;
+     background-size: cover;
+     background-position: center 20%;
+     padding: 5rem 0;
+     height: 100vh;
+     width: 40%;
+ }
+
+
+.formulario {
+    flex-basis: 27%;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 23rem;
+    height: 23rem;
+}
+
+@media (max-width: 768px) {
+    .contenedor {
+        flex-wrap: wrap;
+    }
+
+    .imagen {
+        flex-basis: 100%;
+        margin-bottom: 30px;
+        margin-right: 0;
+    }
+
+    .formulario {
+        flex-basis: 100%;
+    }
+}
+
+  /*Slogan*/
+.navegacion-barra span{
+    color: #fff;
+    display:block;
+    font-size: 1rem;
+    font-family: 'Barlow', sans-serif;
+}
+  
+
+
+
+/*globales*/
+a{
+    text-decoration: none;/*es para que los enlaces no tengan esa linea de abajo*/
+    color: #fff;
+}
+
+.texto{
+    text-align: center;
+    color: #000;
+    font-family: 'Barlow', sans-serif;
+
+}
+
+/*formulario*/
+.formulario-inicar-sesion{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  
+}
+.campo:first-child{
+  margin-top: 2rem;
+}
+
+/*Input animation*/
+
+.div-flex{
+    width: 100%;
+    position: relative;
+}
+.input-cedula{
+    padding: 1rem;
+}
+.input{
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 100%; /* el ancho será el 100% del contenedor padre */
+    border-radius: .5rem;
+
+    padding: 1.3rem;
+    border: solid 2px #000000;
+    outline: none;
+    width: 100%;
+  }
+.input:focus+.form__label{
+    transform: translateY(-2.5rem);
+    transition: .5s ;
+    color: black;
+    width: auto;
+}
+
+.campo{
+    padding: 1rem;
+    display: flex;
+}
+.camp{
+    width: 100%;
+    position: relative;
+    padding: 1rem;
+}
+.form__label{
+    position: absolute;
+    top: 1.6rem;
+    left: 2.5rem;
+    background: white;
+    padding: 0 .5rem;
+    color: gray;
+    width: 85%;
+}
+.label__Cedula{
+    top: .5rem;
+    left: 1rem;
+}
+/*input animation*/
+
+.input-correo, .input-password {
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 100%; /* el ancho será el 100% del contenedor padre */
+    border-radius: .5rem;
+    border-color: #2b2626;
+    padding: 1.3rem;
+  }
+  
+  .boton-iniciar-sesion {
+    padding: 1.2rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-radius: .5rem;
+    background-color: #0F9A71;
+    color: #fff;
+    width: 95%;
+    border: 2px solid;
+
+}
+.boton-iniciar-sesion:hover{
+    background-color: #00514f;
+}
+
+
+
+legend{
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+
+
+
+fieldset{
+  border-radius: 20px;
+}
+.formulario__input--a {
+ text-align: center;
+ margin-bottom: 2rem;
+}
+.formulario__input--a a{
+  color: #000;
+  font-size: 1.4rem;
+  text-align: center;
+  text-decoration:underline;
+}
+
+
+
+.body-sesion {
+    margin: 0;
+    padding: 0;
+}
+
+.nombre-sitio {
+    background: linear-gradient(to right, #3EEBB7 0,#069584,#047063 65% );
+    padding: 0.5rem;
+}
+
+.nombre-sitio h1 {
+    font-family: 'Barlow', sans-serif;
+    font-size: 3rem;
+    margin: 0;
+    padding-left: 3rem;
+    color: #fff;
+}
+
+
+.navegacion-barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navegacion {
+    padding: 0.5rem 3rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 2rem;
+}
+
+.contenedor__header {
+    width: 100%;
+    margin: 0;
+}
