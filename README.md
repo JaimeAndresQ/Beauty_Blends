@@ -121,4 +121,10 @@ Desarrollar un sistema de información web, contemplando estándares de desarrol
 
 ![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Home_Page.png)
 
-![Home Page](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Login.png)
+![Login](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Login.png)
+
+![Actualizar Datos ](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Actualizar_Datos.png)
+
+![Agregar citas](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Agregar_Citas.png)
+
+![Citas programadas](https://raw.githubusercontent.com/JaimeAndresQ/Beauty_Blends/main/assets/Citas_Programadas.png)
