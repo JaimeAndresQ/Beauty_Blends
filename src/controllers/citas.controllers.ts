@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { citas } from '../models/citas'
-import { Op } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
 import { area_tratamiento, medico, paciente } from '../models/user'
 
 //Estado de las citas
@@ -168,6 +168,92 @@ export const consultarCitasAsignadas = async(req:Request, res: Response) => {
         //En caso de encontrarlas
         res.status(200).json({
             citasAsignadas
+        })
+    }
+}
+
+export const cancelarCitas = async (req: Request, res: Response) => {
+    //Primeramente se reciben los parametros para cancelar la cita
+    const id_cita = +req.params.id_cita
+    
+    //Se realiza la busqueda de la cita asociada al id proporcionado y valida la fecha
+    const citaExistente = citas.findOne({
+      where: {
+        id_cita: id_cita,
+        cita_fecha: {
+          [Op.gte]: Sequelize.literal('DATE_ADD(CURDATE(), INTERVAL 1 DAY)')
+        }
+      }
+    });
+    
+    //Se valida la existencia de la cita
+    if(!citaExistente){
+        //En caso de que exista se procede a validar mediante el parametro que permite cancelar citas
+        //Los parametros son que el dia puede ser maximo el mismo y que la hora debe ser 6 horas antes de la de inicio
+        //Buscar la cita y verificar que no cumpla con los parametros establecidos
+        const validacionCita = await citas.findOne({
+        where: {
+        id_cita: id_cita,
+        cita_fecha: Sequelize.literal('CURDATE()'),
+        [Op.and]: Sequelize.where(
+            Sequelize.fn('TIMESTAMPDIFF', Sequelize.literal('HOUR'), Sequelize.col('cita_hora_inicio'), Sequelize.literal('NOW()')),
+            '<=', 6
+        )
+        }
+    });
+    if(validacionCita){
+        //Procedo a realizar la consulta para cancelar la cita
+        await citas.update({fk_id_paciente: null}, {where: {id: id_cita}})
+    }else{
+        //Devuelvo un mensaje de error
+        res.status(400).json({
+            msg: 'No es posible cancelar la cita!'
+        })
+    } 
+}else{
+    //Cumple el parametro de que se encuentra lejos de la fecha de la cita
+    await citas.update({fk_id_paciente: null}, {where: {id: id_cita}})
+}}
+
+export const consultarCitasAsignadasAdministrador = async(_req: Request, res: Response) => {
+    
+    //consulta para traer todas las citas que estan programadas
+    const citasAsignadas = await citas.findAll({where: {cita_estado: 0}})
+
+    //Existen citas programadas
+    if(citasAsignadas.length > 0 ){
+        res.status(200).json(
+            citasAsignadas
+            )
+    }else{
+        //No existen citas asignadas
+        res.status(404).json({
+            msg: 'No existen citas programadas por el momento'
+        })
+    }
+}
+
+//Para este metodo se tiene claro que las citas tienen 3 estados:
+//Estado Disponible(1), No Disponible o Asignada(0), Completada(2)
+export const actualizarEstadoCita = async (req: Request, res: Response) => {
+    //Recibir los parametros necesarios para la actualizacion del estado de la cita
+    const id_cita = +req.params.id_cita
+    const {estado} = req.body
+
+    //Buscar que la cita se encuentre en la base de datos
+    const citaExistente = await citas.findByPk(id_cita)
+
+    //Validar que exista la cita con el id correspondiente
+    if(citaExistente){
+        //Actualizar el estado de la cita con el parametro que se recibe
+        await citas.update({cita_estado: estado}, {where: {id_cita}})
+        res.status(200).json({
+            msg: `Estado de la cita ${id_cita} actualizado correctamente`
+        })
+    }else{
+        //Devolver un mensaje de error
+        res.status(404).json({
+            msg: `La cita con id: ${id_cita} no se ha encontrado`
         })
     }
 }

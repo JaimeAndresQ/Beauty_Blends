@@ -5,6 +5,7 @@ import routesUser from '../routes/user'
 import sequelize from '../db/connection'
 import { citas } from './citas'
 import { paciente, usuario } from './user'
+import routesConsultasMedicas from '../routes/consultas_medicas'
 
 class Server {
     private app: Application
@@ -29,6 +30,7 @@ class Server {
     routes() {
         this.app.use('/api/citas', routesCitas)
         this.app.use('/api/users', routesUser)
+        this.app.use('/api/consultasMedicas',routesConsultasMedicas)
     }
 
     midlewares() {
